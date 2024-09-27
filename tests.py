@@ -133,6 +133,42 @@ def test_is_opened_modal_by_click_button_remove_todo_item():
 
     browser.refresh()
 
+def test_removing_modal_has_button_yes_and_no():
+    try:
+        create_todo_item()
+        click_button_remove_todo_item()
+        get_removing_modal_button_no()
+        get_removing_modal_button_yes()
+        assert True
+    except NoSuchElementException:
+        assert False
+
+    browser.refresh()
+
+def test_removing_modal_click_yes_removed_todo_item():
+    try:
+        create_todo_item()
+        click_button_remove_todo_item()
+        click_removing_modal_button_yes()
+        get_todo_item()
+        assert False
+    except NoSuchElementException:
+        assert True
+
+    browser.refresh()
+
+def test_removing_modal_click_no_removed_removing_modal():
+    try:
+        create_todo_item()
+        click_button_remove_todo_item()
+        click_removing_modal_button_no()
+        get_removing_modal()
+        assert False
+    except NoSuchElementException:
+        assert True
+
+    browser.refresh()
+
 time.sleep(1)
 
 def get_button_add() -> WebElement:
@@ -188,3 +224,15 @@ def create_todo_item():
 
 def get_removing_modal():
     return browser.find_element(By.CSS_SELECTOR, '[data-testid="removing_modal"]')
+
+def get_removing_modal_button_yes():
+    return browser.find_element(By.CSS_SELECTOR, '[data-testid="removing_modal"] [data-testid="modal_yes"]')
+
+def get_removing_modal_button_no():
+    return browser.find_element(By.CSS_SELECTOR, '[data-testid="removing_modal"] [data-testid="modal_no"]')
+
+def click_removing_modal_button_yes():
+    get_removing_modal_button_yes().click()
+
+def click_removing_modal_button_no():
+    get_removing_modal_button_no().click()
