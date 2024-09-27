@@ -1,4 +1,5 @@
 import time
+import pytest
 from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver import ActionChains
@@ -11,9 +12,11 @@ browser = webdriver.Chrome()
 
 browser.get(TARGET)
 
+@pytest.mark.run_these_please
 def test_is_correct_text_of_button_add():
     assert get_button_add().text == '+ Добавить элемент'
 
+@pytest.mark.run_these_please
 def test_is_added_one_element_todolist_by_click():
     try:
         click_button_add()
