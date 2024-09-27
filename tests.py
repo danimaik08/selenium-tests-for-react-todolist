@@ -88,30 +88,30 @@ def test_todolist_element_doesnt_save_space_on_the_edge_after_pressing_enter():
 
     browser.refresh()
 
-def test_is_found_button_edit():
+def test_is_found_button_edit_todo_item():
     try:
         create_todo_item()
-        get_button_edit()
+        get_button_edit_todo_item()
         assert True
     except NoSuchElementException:
         assert False
 
     browser.refresh()
 
-def test_is_found_button_remove():
+def test_is_found_button_remove_todo_item():
     try:
         create_todo_item()
-        get_button_remove()
+        get_button_remove_todo_item()
         assert True
     except NoSuchElementException:
         assert False
 
     browser.refresh()
 
-def test_is_enable_editing_input_by_click_button_edit():
+def test_is_enable_editing_input_by_click_button_edit_todo_item():
     try:
         create_todo_item()
-        click_button_edit()
+        click_button_edit_todo_item()
         get_editing_input()
         assert True
     except NoSuchElementException:
@@ -119,10 +119,10 @@ def test_is_enable_editing_input_by_click_button_edit():
 
     browser.refresh()
 
-def test_is_opened_modal_by_click_button_remove():
+def test_is_opened_modal_by_click_button_remove_todo_item():
     try:
         create_todo_item()
-        click_button_remove()
+        click_button_remove_todo_item()
         get_removing_modal()
         assert True
     except NoSuchElementException:
@@ -133,37 +133,37 @@ def test_is_opened_modal_by_click_button_remove():
 time.sleep(1)
 
 def get_button_add() -> WebElement:
-    return browser.find_element(By.CLASS_NAME, 'button_add')
+    return browser.find_element(By.CSS_SELECTOR, '[data-testid="button_add"]')
 
-def get_button_edit() -> WebElement:
-    return browser.find_element(By.CLASS_NAME, 'button_edit')
+def get_button_edit_todo_item() -> WebElement:
+    return browser.find_element(By.CSS_SELECTOR, '[data-testid="button_edit_todo_item"]')
 
-def get_button_remove() -> WebElement:
-    return browser.find_element(By.CLASS_NAME, 'button_remove')
+def get_button_remove_todo_item() -> WebElement:
+    return browser.find_element(By.CSS_SELECTOR, '[data-testid="button_remove_todo_item"]')
 
 def click_button_add():
     get_button_add().click()
 
-def click_button_edit():
-    get_button_edit().click()
+def click_button_edit_todo_item():
+    get_button_edit_todo_item().click()
 
-def click_button_remove():
-    get_button_remove().click()
+def click_button_remove_todo_item():
+    get_button_remove_todo_item().click()
 
 def get_todo_item() -> WebElement:
-    return browser.find_element(By.CLASS_NAME,'todo_item')
+    return browser.find_element(By.CSS_SELECTOR,'[data-testid="todo_item"]')
 
 def get_creating_input() -> WebElement:
-    return browser.find_element(By.CLASS_NAME,'creating_input')
+    return browser.find_element(By.CSS_SELECTOR,'[data-testid="creating_input"]')
 
 def get_editing_input() -> WebElement:
-    return browser.find_element(By.CLASS_NAME,'editing_input')
+    return browser.find_element(By.CSS_SELECTOR,'[data-testid="editing_input"]')
 
 def get_button_cancel_editing() -> WebElement:
-    return browser.find_element(By.CLASS_NAME,'button_cancel_editing')
+    return browser.find_element(By.CSS_SELECTOR,'[data-testid="button_cancel_editing"]')
 
 def get_button_cancel_creating() -> WebElement:
-    return browser.find_element(By.CLASS_NAME,'button_cancel_creating')
+    return browser.find_element(By.CSS_SELECTOR,'[data-testid="button_cancel_creating"]')
 
 def click_button_cancel_editing():
     return get_button_cancel_editing().click()
@@ -175,7 +175,7 @@ def click_enter():
     ActionChains(browser).key_down(Keys.RETURN).key_up(Keys.RETURN).perform()
 
 def get_todo_item_text() -> WebElement:
-    return browser.find_element(By.CLASS_NAME, 'text')
+    return browser.find_element(By.CSS_SELECTOR, '[data-testid="text"]')
 
 def create_todo_item():
     click_button_add()
@@ -184,4 +184,4 @@ def create_todo_item():
     click_enter()
 
 def get_removing_modal():
-    return browser.find_element(By.CLASS_NAME, 'removing_modal')
+    return browser.find_element(By.CSS_SELECTOR, '[data-testid="removing_modal"]')
