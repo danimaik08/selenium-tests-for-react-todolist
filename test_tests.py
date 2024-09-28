@@ -18,154 +18,110 @@ def test_is_correct_text_of_button_add():
 
 @pytest.mark.run_these_please
 def test_is_added_one_element_todolist_by_click():
-    try:
-        click_button_add()
-        get_todo_item()
-        assert True
-    except NoSuchElementException:
-        assert False
+    click_button_add()
+    get_todo_item()
 
     browser.refresh()
 
 def test_todolist_element_has_input_after_adding_by_button_add():
-    try:
-        click_button_add()
-        get_creating_input()
-        assert True
-    except NoSuchElementException:
-        assert False
+    click_button_add()
+    get_creating_input()
 
     browser.refresh()
 
 def test_todolist_is_empty_after_creating_and_canceling_of_creating():
-    try:
-        click_button_add()
-        click_button_cancel_creating()
+    click_button_add()
+    click_button_cancel_creating()
+
+    with pytest.raises(NoSuchElementException):
         get_todo_item()
-        assert False
-    except NoSuchElementException:
-        assert True
 
     browser.refresh()
 
 def test_todolist_elements_creating_input_enable():
-    try:
-        click_button_add()
-        element_input = get_creating_input()
-        element_input.send_keys('string')
-        assert True
-    except NoSuchElementException:
-        assert False
+    click_button_add()
+    element_input = get_creating_input()
+    element_input.send_keys('string')
 
     browser.refresh()
 
 def test_todolist_elements_input_save_space_on_the_edge():
-    try:
-        click_button_add()
-        todo_item_input = get_creating_input()
+    click_button_add()
+    todo_item_input = get_creating_input()
 
-        string_with_spaces_on_the_edge = ' string '
-        todo_item_input.send_keys(string_with_spaces_on_the_edge)
+    string_with_spaces_on_the_edge = ' string '
+    todo_item_input.send_keys(string_with_spaces_on_the_edge)
 
-        assert string_with_spaces_on_the_edge == todo_item_input.get_dom_attribute('value')
-    except NoSuchElementException:
-        assert False
+    assert string_with_spaces_on_the_edge == todo_item_input.get_dom_attribute('value')
 
     browser.refresh()
 
 def test_todolist_element_doesnt_save_space_on_the_edge_after_pressing_enter():
-    try:
-        click_button_add()
+    click_button_add()
 
-        element_input = get_creating_input()
+    element_input = get_creating_input()
 
-        string_with_spaces_on_the_edge = ' string '
-        element_input.send_keys(string_with_spaces_on_the_edge)
-        click_enter()
-        div_with_text = get_todo_item_text()
+    string_with_spaces_on_the_edge = ' string '
+    element_input.send_keys(string_with_spaces_on_the_edge)
+    click_enter()
+    div_with_text = get_todo_item_text()
 
-        assert (string_with_spaces_on_the_edge != div_with_text.text
-                and string_with_spaces_on_the_edge.strip() == div_with_text.text)
-    except NoSuchElementException:
-        assert False
+    assert (string_with_spaces_on_the_edge != div_with_text.text
+            and string_with_spaces_on_the_edge.strip() == div_with_text.text)
 
     browser.refresh()
 
 def test_is_found_button_edit_todo_item():
-    try:
-        create_todo_item()
-        get_button_edit_todo_item()
-        assert True
-    except NoSuchElementException:
-        assert False
+    create_todo_item()
+    get_button_edit_todo_item()
 
     browser.refresh()
 
 def test_is_found_button_remove_todo_item():
-    try:
-        create_todo_item()
-        get_button_remove_todo_item()
-        assert True
-    except NoSuchElementException:
-        assert False
+    create_todo_item()
+    get_button_remove_todo_item()
 
     browser.refresh()
 
 def test_is_enable_editing_input_by_click_button_edit_todo_item():
-    try:
-        create_todo_item()
-        click_button_edit_todo_item()
-        get_editing_input()
-        assert True
-    except NoSuchElementException:
-        assert False
+    create_todo_item()
+    click_button_edit_todo_item()
+    get_editing_input()
 
     browser.refresh()
 
 def test_is_opened_modal_by_click_button_remove_todo_item():
-    try:
-        create_todo_item()
-        click_button_remove_todo_item()
-        get_removing_modal()
-        assert True
-    except NoSuchElementException:
-        assert False
+    create_todo_item()
+    click_button_remove_todo_item()
+    get_removing_modal()
 
     browser.refresh()
 
 def test_removing_modal_has_button_yes_and_no():
-    try:
-        create_todo_item()
-        click_button_remove_todo_item()
-        get_removing_modal_button_no()
-        get_removing_modal_button_yes()
-        assert True
-    except NoSuchElementException:
-        assert False
+    create_todo_item()
+    click_button_remove_todo_item()
+    get_removing_modal_button_no()
+    get_removing_modal_button_yes()
 
     browser.refresh()
 
 def test_removing_modal_click_yes_removed_todo_item():
-    try:
-        create_todo_item()
-        click_button_remove_todo_item()
-        click_removing_modal_button_yes()
+    create_todo_item()
+    click_button_remove_todo_item()
+    click_removing_modal_button_yes()
+
+    with pytest.raises(NoSuchElementException):
         get_todo_item()
-        assert False
-    except NoSuchElementException:
-        assert True
 
     browser.refresh()
 
 def test_removing_modal_click_no_removed_removing_modal():
-    try:
-        create_todo_item()
-        click_button_remove_todo_item()
-        click_removing_modal_button_no()
+    create_todo_item()
+    click_button_remove_todo_item()
+    click_removing_modal_button_no()
+
+    with pytest.raises(NoSuchElementException):
         get_removing_modal()
-        assert False
-    except NoSuchElementException:
-        assert True
 
     browser.refresh()
 
