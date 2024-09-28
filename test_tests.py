@@ -1,12 +1,5 @@
-import time
 import pytest
-from selenium import webdriver
 from selenium.common import NoSuchElementException
-from selenium.webdriver import ActionChains
-from selenium.webdriver import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
-from settings import TARGET
 from api import BrowserAPI
 
 browser_api = BrowserAPI()
