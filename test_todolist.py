@@ -3,7 +3,7 @@ from selenium.common import NoSuchElementException
 from api import BrowserAPI
 
 """ Function: todolist app """
-""" There is a GUI (a button (named as button_add) that adding todo_item, todolist) """
+""" There is a GUI (todolist and a button (named as button_add) that adding todo_item) """
 """ User can add, edit and remove todo_items """
 """ User can cancel adding, editing and removing todo_items """
 """ Background: User opened page with url = {settings.TARGET} """
