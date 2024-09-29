@@ -40,7 +40,7 @@ class BrowserAPI:
     def get_todo_item(self) -> WebElement:
         return self.browser.find_element(By.CSS_SELECTOR,'[data-testid="todo_item"]')
 
-    def get_creating_input(self) -> WebElement:
+    def get_adding_input(self) -> WebElement:
         return self.browser.find_element(By.CSS_SELECTOR,'[data-testid="creating_input"]')
 
     def get_editing_input(self) -> WebElement:
@@ -49,14 +49,14 @@ class BrowserAPI:
     def get_button_cancel_editing(self) -> WebElement:
         return self.browser.find_element(By.CSS_SELECTOR,'[data-testid="button_cancel_editing"]')
 
-    def get_button_cancel_creating(self) -> WebElement:
+    def get_button_cancel_adding(self) -> WebElement:
         return self.browser.find_element(By.CSS_SELECTOR,'[data-testid="button_cancel_creating"]')
 
     def click_button_cancel_editing(self):
         return self.get_button_cancel_editing().click()
 
-    def click_button_cancel_creating(self):
-        return self.get_button_cancel_creating().click()
+    def click_button_cancel_adding(self):
+        return self.get_button_cancel_adding().click()
 
     def press_enter(self):
         ActionChains(self.browser).key_down(Keys.RETURN).key_up(Keys.RETURN).perform()
@@ -64,9 +64,9 @@ class BrowserAPI:
     def get_todo_item_text(self) -> WebElement:
         return self.browser.find_element(By.CSS_SELECTOR, '[data-testid="text"]')
 
-    def create_todo_item(self):
+    def add_todo_item(self):
         self.click_button_add()
-        todo_item_input = self.get_creating_input()
+        todo_item_input = self.get_adding_input()
         todo_item_input.send_keys('string')
         self.press_enter()
 
