@@ -1,12 +1,7 @@
 import pytest
+from pytest_bdd import scenario
 from selenium.common import NoSuchElementException
 from api import BrowserAPI
-
-""" Function: todolist app """
-""" There is a GUI (todolist and a button (named as button_add) that adding todo_item) """
-""" User can add, edit and remove todo_items """
-""" User can cancel adding, editing and removing todo_items """
-""" Background: User opened page with url = {settings.TARGET} """
 
 browser_api = BrowserAPI()
 
@@ -24,45 +19,30 @@ def after_all():
     yield
     browser_api.close()
 
+@scenario('todolist.feature', 'Rendering this web application')
 def test_is_correct_text_of_button_add():
-    """ Text of button_add must be equal '+ Добавить элемент' """
     assert browser_api.get_button_add().text == '+ Добавить элемент'
 
+@scenario('todolist.feature', 'Adding a new todo_item')
 def test_is_added_one_element_todolist_by_click():
-    """ Click of button_add must add todo_item """
     browser_api.click_button_add()
     browser_api.get_todo_item()
 
+@scenario('todolist.feature', 'Adding a new todo_item\'s input')
 def test_todolist_element_has_input_after_adding_by_button_add():
-    """ Click of button_add must add input """
     browser_api.click_button_add()
     browser_api.get_adding_input()
 
+@scenario('todolist.feature', 'Cancelling of adding a todo_item')
 def test_todolist_is_empty_after_creating_and_canceling_of_creating():
-    """
-    Background: User clicked button_add.
-    Click of the button that cancelling adding todo_item must remove todo_item
-    """
     browser_api.click_button_add()
     browser_api.click_button_cancel_adding()
 
     with pytest.raises(NoSuchElementException):
         browser_api.get_todo_item()
 
-def test_todolist_elements_creating_input_enable():
-    """
-    Background: User clicked button_add.
-    todo_item's input must be interactive after adding into todolist
-    """
-    browser_api.click_button_add()
-    element_input = browser_api.get_adding_input()
-    element_input.send_keys('string')
-
+@scenario('todolist.feature', 'Filling by text a todo_item')
 def test_todolist_elements_input_save_space_on_the_edge():
-    """
-    Background: User clicked button_add.
-    todo_item's input must save spaces on the edge of input's value
-    """
     browser_api.click_button_add()
     todo_item_input = browser_api.get_adding_input()
 
@@ -71,11 +51,8 @@ def test_todolist_elements_input_save_space_on_the_edge():
 
     assert string_with_spaces_on_the_edge == todo_item_input.get_dom_attribute('value')
 
+@scenario('todolist.feature', 'Pressing Enter after filling by text a todo_item')
 def test_todolist_element_doesnt_save_space_on_the_edge_after_pressing_enter():
-    """
-    Background: User clicked button_add.
-    todo_item's text must remove spaces on the edge of input's value after adding
-    """
     browser_api.click_button_add()
 
     element_input = browser_api.get_adding_input()
@@ -88,73 +65,47 @@ def test_todolist_element_doesnt_save_space_on_the_edge_after_pressing_enter():
     assert (string_with_spaces_on_the_edge != div_with_text.text
             and string_with_spaces_on_the_edge.strip() == div_with_text.text)
 
+@scenario('todolist.feature', 'Finding a button for editing todo_item')
 @pytest.mark.usefixtures('add_todo_item')
 def test_is_found_button_edit_todo_item():
-    """
-    Background: User clicked button_add, added a text into input and pressed Enter.
-    todo_item must have button that allows to edit todo_item
-    """
     browser_api.get_button_edit_todo_item()
 
+@scenario('todolist.feature', 'Finding a button for removing todo_item')
 @pytest.mark.usefixtures('add_todo_item')
 def test_is_found_button_remove_todo_item():
-    """
-    Background: User clicked button_add, added a text into input and pressed Enter.
-    todo_item must have button for removing todo_item
-    """
     browser_api.get_button_remove_todo_item()
 
+@scenario('todolist.feature', 'Switching on editing state')
 @pytest.mark.usefixtures('add_todo_item')
 def test_is_enable_editing_input_by_click_button_edit_todo_item():
-    """
-    Background: User clicked button_add, added a text into input and pressed Enter.
-    Background Next Step: User clicked button that allows to edit todo_item
-    todo_item must have input
-    """
     browser_api.click_button_edit_todo_item()
     browser_api.get_editing_input()
 
+@scenario('todolist.feature', 'Switching on removing state')
 @pytest.mark.usefixtures('add_todo_item')
 def test_is_opened_modal_by_click_button_remove_todo_item():
-    """
-    Background: User clicked button_add, added a text into input and pressed Enter.
-    Background Next Step: User clicked button for removing todo_item
-    There must be modal
-    """
     browser_api.click_button_remove_todo_item()
     browser_api.get_removing_modal()
 
+@scenario('todolist.feature', 'Finding buttons Yes and No on a removing modal')
 @pytest.mark.usefixtures('add_todo_item')
 def test_removing_modal_has_button_yes_and_no():
-    """
-    Background: User clicked button_add, added a text into input and pressed Enter.
-    Background Next Step: User clicked button for removing todo_item
-    There must be modal buttons Yes and No
-    """
     browser_api.click_button_remove_todo_item()
     browser_api.get_removing_modal_button_yes()
     browser_api.get_removing_modal_button_no()
 
+@scenario('todolist.feature', 'Removing todo_item')
 @pytest.mark.usefixtures('add_todo_item')
 def test_removing_modal_click_yes_removed_todo_item():
-    """
-    Background: User clicked button_add, added a text into input and pressed Enter.
-    Background Next Step: User clicked button for removing todo_item
-    User must remove todo_item by click button Yes
-    """
     browser_api.click_button_remove_todo_item()
     browser_api.click_removing_modal_button_yes()
 
     with pytest.raises(NoSuchElementException):
         browser_api.get_todo_item()
 
+@scenario('todolist.feature', 'Cancel removing todo_item')
 @pytest.mark.usefixtures('add_todo_item')
 def test_removing_modal_click_no_removed_removing_modal():
-    """
-    Background: User clicked button_add, added a text into input and pressed Enter.
-    Background Next Step: User clicked button for removing todo_item
-    User must close modal by click button No
-    """
     browser_api.click_button_remove_todo_item()
     browser_api.click_removing_modal_button_no()
 

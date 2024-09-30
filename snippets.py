@@ -32,3 +32,13 @@ def some_data():
 
 def _test_some_data(some_data):
     assert some_data == 42
+
+# Gherkin
+
+Scenario: Rendering this web application
+    Given I'm a user
+
+    When I go to the target page
+
+    Then I must see button_add
+    And Text of button_add must be equal '+ Добавить элемент'
