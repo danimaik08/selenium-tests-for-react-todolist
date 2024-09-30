@@ -64,12 +64,6 @@ class BrowserAPI:
     def get_todo_item_text(self) -> WebElement:
         return self.browser.find_element(By.CSS_SELECTOR, '[data-testid="text"]')
 
-    def add_todo_item(self):
-        self.click_button_add()
-        todo_item_input = self.get_adding_input()
-        todo_item_input.send_keys('string')
-        self.press_enter()
-
     def get_removing_modal(self):
         return self.browser.find_element(By.CSS_SELECTOR, '[data-testid="removing_modal"]')
 
