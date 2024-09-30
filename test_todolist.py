@@ -15,6 +15,15 @@ def after_each():
     yield
     browser_api.refresh()
 
+@pytest.fixture(scope='session', autouse=True)
+def before_all():
+    browser_api.init()
+
+@pytest.fixture(scope='session', autouse=True)
+def after_all():
+    yield
+    browser_api.close()
+
 def test_is_correct_text_of_button_add():
     """ Text of button_add must be equal '+ Добавить элемент' """
     assert browser_api.get_button_add().text == '+ Добавить элемент'

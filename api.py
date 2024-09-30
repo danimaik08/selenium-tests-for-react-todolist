@@ -17,7 +17,6 @@ def singleton(class_):
 class BrowserAPI:
     def __init__(self):
         self.browser = webdriver.Chrome()
-        self.browser.get(TARGET)
 
     def get_button_add(self) -> WebElement:
         return self.browser.find_element(By.CSS_SELECTOR, '[data-testid="button_add"]')
@@ -79,5 +78,11 @@ class BrowserAPI:
     def click_removing_modal_button_no(self):
         self.get_removing_modal_button_no().click()
 
+    def init(self):
+        self.browser.get(TARGET)
+
     def refresh(self):
         self.browser.refresh()
+
+    def close(self):
+        self.browser.close()
