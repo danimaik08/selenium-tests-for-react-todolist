@@ -11,7 +11,7 @@ from api import BrowserAPI
 browser_api = BrowserAPI()
 
 @pytest.fixture(autouse=True)
-def before_and_after_each_test():
+def after_each():
     yield
     browser_api.refresh()
 
