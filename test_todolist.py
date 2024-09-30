@@ -79,21 +79,24 @@ def test_todolist_element_doesnt_save_space_on_the_edge_after_pressing_enter():
     assert (string_with_spaces_on_the_edge != div_with_text.text
             and string_with_spaces_on_the_edge.strip() == div_with_text.text)
 
-def test_is_found_button_edit_todo_item(add_todo_item):
+@pytest.mark.usefixtures('add_todo_item')
+def test_is_found_button_edit_todo_item():
     """
     Background: User clicked button_add, added a text into input and pressed Enter.
     todo_item must have button that allows to edit todo_item
     """
     browser_api.get_button_edit_todo_item()
 
-def test_is_found_button_remove_todo_item(add_todo_item):
+@pytest.mark.usefixtures('add_todo_item')
+def test_is_found_button_remove_todo_item():
     """
     Background: User clicked button_add, added a text into input and pressed Enter.
     todo_item must have button for removing todo_item
     """
     browser_api.get_button_remove_todo_item()
 
-def test_is_enable_editing_input_by_click_button_edit_todo_item(add_todo_item):
+@pytest.mark.usefixtures('add_todo_item')
+def test_is_enable_editing_input_by_click_button_edit_todo_item():
     """
     Background: User clicked button_add, added a text into input and pressed Enter.
     Background Next Step: User clicked button that allows to edit todo_item
@@ -102,7 +105,8 @@ def test_is_enable_editing_input_by_click_button_edit_todo_item(add_todo_item):
     browser_api.click_button_edit_todo_item()
     browser_api.get_editing_input()
 
-def test_is_opened_modal_by_click_button_remove_todo_item(add_todo_item):
+@pytest.mark.usefixtures('add_todo_item')
+def test_is_opened_modal_by_click_button_remove_todo_item():
     """
     Background: User clicked button_add, added a text into input and pressed Enter.
     Background Next Step: User clicked button for removing todo_item
@@ -111,7 +115,8 @@ def test_is_opened_modal_by_click_button_remove_todo_item(add_todo_item):
     browser_api.click_button_remove_todo_item()
     browser_api.get_removing_modal()
 
-def test_removing_modal_has_button_yes_and_no(add_todo_item):
+@pytest.mark.usefixtures('add_todo_item')
+def test_removing_modal_has_button_yes_and_no():
     """
     Background: User clicked button_add, added a text into input and pressed Enter.
     Background Next Step: User clicked button for removing todo_item
@@ -121,7 +126,8 @@ def test_removing_modal_has_button_yes_and_no(add_todo_item):
     browser_api.get_removing_modal_button_yes()
     browser_api.get_removing_modal_button_no()
 
-def test_removing_modal_click_yes_removed_todo_item(add_todo_item):
+@pytest.mark.usefixtures('add_todo_item')
+def test_removing_modal_click_yes_removed_todo_item():
     """
     Background: User clicked button_add, added a text into input and pressed Enter.
     Background Next Step: User clicked button for removing todo_item
@@ -133,7 +139,8 @@ def test_removing_modal_click_yes_removed_todo_item(add_todo_item):
     with pytest.raises(NoSuchElementException):
         browser_api.get_todo_item()
 
-def test_removing_modal_click_no_removed_removing_modal(add_todo_item):
+@pytest.mark.usefixtures('add_todo_item')
+def test_removing_modal_click_no_removed_removing_modal():
     """
     Background: User clicked button_add, added a text into input and pressed Enter.
     Background Next Step: User clicked button for removing todo_item
@@ -151,4 +158,3 @@ def add_todo_item():
     todo_item_input = browser_api.get_adding_input()
     todo_item_input.send_keys('string')
     browser_api.press_enter()
-    yield
