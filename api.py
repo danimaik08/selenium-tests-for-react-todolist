@@ -39,8 +39,14 @@ class BrowserAPI:
     def get_todo_item(self) -> WebElement:
         return self.browser.find_element(By.CSS_SELECTOR,'[data-testid="todo_item"]')
 
+    def get_todo_items(self) -> list[WebElement]:
+        return self.browser.find_elements(By.CSS_SELECTOR,'[data-testid="todo_item"]')
+
     def get_adding_input(self) -> WebElement:
         return self.browser.find_element(By.CSS_SELECTOR,'[data-testid="creating_input"]')
+
+    def get_adding_inputs(self) -> list[WebElement]:
+        return self.browser.find_elements(By.CSS_SELECTOR,'[data-testid="creating_input"]')
 
     def get_editing_input(self) -> WebElement:
         return self.browser.find_element(By.CSS_SELECTOR,'[data-testid="editing_input"]')
@@ -62,6 +68,10 @@ class BrowserAPI:
 
     def get_todo_item_text(self) -> WebElement:
         return self.browser.find_element(By.CSS_SELECTOR, '[data-testid="text"]')
+
+    def get_todo_item_texts(self) -> list[WebElement]:
+        return self.browser.find_elements(By.CSS_SELECTOR, '[data-testid="text"]')
+
 
     def get_removing_modal(self):
         return self.browser.find_element(By.CSS_SELECTOR, '[data-testid="removing_modal"]')

@@ -1,101 +1,113 @@
 Feature: Todolist
   There is a GUI (todolist and a button (named as button_add) that adding todo_item)
   User can add, edit and remove todo_items
-  User can cancel adding, editing and removing todo_items
+  User can adding, cancel adding, editing, cancel editing, removing and cancel removing todo_items
+  button that adds todo_item named as button_add
+  button that edits todo_item named as button_edit
+  button that opens todo_item's removing modal named as button_open_removing_modal
+  button that removes todo_item named as button_remove
+  todo_item's button that cancels adding named as button_cancel_adding
+  todo_item's button that cancels editing named as button_cancel_editing
+  todo_item's button that cancels removing named as button_cancel_removing
 
   Scenario: Rendering this web application
-    Given I'm a user
+    Given I'm on page
 
-    When I go to the target page
-
-    Then I must see button_add
-    And button_add's text must be equal '+ Добавить элемент'
+    Then button_add should be
+    And button_add's text should be equal '+ Добавить элемент'
 
   Scenario: Adding a new todo_item
-    Given I'm on the target page
+    Given given There is 0 todo_item
 
     When I click button_add
 
-    Then Click of button_add must add todo_item
+    Then There is 1 todo_item
 
   Scenario: Adding a new todo_item's input
-    When todo_item was added
+    Given given There is 1 todo_item
 
-    Then There must be input
+    Then There is 1 adding input
 
   Scenario: Cancelling of adding a todo_item
-    Given There is one todo_item
+    Given given There is 1 todo_item
 
-    When I click of the button that cancelling adding todo_item
+    When I click button_cancel_adding
 
-    Then There is no todo_item
+    Then There is 0 todo_item
 
   Scenario: Filling by text a todo_item
-    Given There is one todo_item
+    Given given There is 1 todo_item
 
-    When I fill todo_item's input by text
+    When I fill all adding inputs by text ' string '
 
-    Then todo_item's input must save spaces on the edge of input's value
+    Then adding inputs texts are equal ' string '
 
   Scenario: Pressing Enter after filling by text a todo_item
-    Given There is one todo_item
-    And I has filled todo_item's input by text
+    Given given There is 1 todo_item
+    And given adding inputs texts are equal ' string '
 
     When I press Enter
 
-    Then todo_item's input must remove spaces on the edge of input's value
-    And There must be an element with the same text
+    Then There is an element with a text equal 'string'
 
-  Scenario: Finding a button for editing todo_item
-    Given There is one todo_item_with_filled_input
-    And I has pressed Enter
+  Scenario: Finding button_edit
+    Given given There is 1 todo_item
+    And given adding inputs texts are equal 'string'
+    And I pressed Enter
 
-    When I'm on the page
+    Then There is button_edit
 
-    Then There is the button for editing todo_item
+  Scenario: Finding button_open_removing_modal
+    Given given There is 1 todo_item
+    And given adding inputs texts are equal 'string'
+    And I pressed Enter
 
-  Scenario: Finding a button for removing todo_item
-    Given There is one todo_item_with_filled_input
-    And I has pressed Enter
-
-    When I'm on the page
-
-    Then There is the button for removing todo_item
+    Then There is button_open_removing_modal
 
   Scenario: Switching on editing state
-    Given There is one todo_item_with_filled_input
-    And I has pressed Enter
+    Given given There is 1 todo_item
+    And given adding inputs texts are equal 'string'
+    And I pressed Enter
 
-    When I click a button for editing
+    When I click button_edit
 
-    Then There is an input for editing
+    Then There is an editing input
 
   Scenario: Switching on removing state
-    Given There is one todo_item_with_filled_input
-    And I has pressed Enter
+    Given given There is 1 todo_item
+    And given adding inputs texts are equal 'string'
+    And I pressed Enter
 
-    When I click a button for removing
+    When I click button_open_removing_modal
 
-    Then There is a modal for removing
+    Then There is a removing modal
 
-  Scenario: Finding buttons Yes and No on a removing modal
-    Given There is one todo_item_with_filled_input
-    And I has pressed Enter
+  Scenario: Finding button_remove and button_cancel_removing on a removing modal
+    Given given There is 1 todo_item
+    And given adding inputs texts are equal 'string'
+    And I pressed Enter
 
-    When I click a button for removing
+    When I click button_open_removing_modal
 
-    Then There are buttons Yes and No on the modal
+    Then There is button_remove
+    And There is button_cancel_removing
 
   Scenario: Removing todo_item
-    Given There is a removing modal
+    Given given There is 1 todo_item
+    And given adding inputs texts are equal 'string'
+    And I pressed Enter
 
-    When I click 'Yes' button
+    When I click button_open_removing_modal
+    And I click button_remove
 
-    Then There is no todo_item
+    Then There is 0 todo_item
 
   Scenario: Cancel removing todo_item
-    Given There is a removing modal
+    Given given There is 1 todo_item
+    And given adding inputs texts are equal 'string'
+    And I pressed Enter
 
-    When I click 'No' button
+    When I click button_open_removing_modal
+    And I click button_cancel_removing
 
-    Then There is one todo_item
+    Then There is 1 todo_item
