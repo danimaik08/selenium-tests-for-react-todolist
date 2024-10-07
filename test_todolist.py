@@ -15,13 +15,13 @@ def after_each():
 
 @pytest.fixture(scope='session', autouse=True)
 def before_all():
-    browser_api.init()
+    browser_api.setup()
 
 
 @pytest.fixture(scope='session', autouse=True)
 def after_all():
     yield
-    browser_api.close()
+    browser_api.teardown()
 
 
 @given('I\'m on page')
